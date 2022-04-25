@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello StudentController!{% endblock %}
+
+{% block body %}
+<h1>StudentController</h1>
+<div class=\"container\">
+    <div class=\"row\">
+        <div class=\"col-md-12\">
+            <div class=\"panel panel-default\">
+                <div class=\"panel-heading\">
+                    <h3 class=\"panel-title\">Student List</h3>
+                </div>
+                <div class=\"panel-body\">
+                    <table class=\"table table-bordered table-striped\">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in student %}
+                            <tr>
+                                <td>{{ student.id }}</td>
+                                <td>{{ student.name }}</td>
+                                <td>{{ student.phone }}</td>
+                                <td>
+                                    <a href=\"#">edit</a>
+                                    <a href=\"#">delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
