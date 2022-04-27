@@ -21,14 +21,14 @@ class Student
     #[ORM\Column(type: 'integer')]
     private $phone;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $course;
-
-    #[ORM\ManyToMany(targetEntity: Course::class, mappedBy: 'students')]
-    private $courses;
-
     #[ORM\Column(type: 'date')]
     private $dob;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $image;
+
+    #[ORM\ManyToOne(targetEntity: Course::class, inversedBy: 'students')]
+    private $course;
 
     public function __construct()
     {
@@ -65,45 +65,6 @@ class Student
         return $this;
     }
 
-    public function getCourse(): ?string
-    {
-        return $this->course;
-    }
-
-    public function setCourse(string $course): self
-    {
-        $this->course = $course;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Course>
-     */
-    public function getCourses(): Collection
-    {
-        return $this->courses;
-    }
-
-    public function addCourse(Course $course): self
-    {
-        if (!$this->courses->contains($course)) {
-            $this->courses[] = $course;
-            $course->addStudent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCourse(Course $course): self
-    {
-        if ($this->courses->removeElement($course)) {
-            $course->removeStudent($this);
-        }
-
-        return $this;
-    }
-
     public function getDob(): ?\DateTimeInterface
     {
         return $this->dob;
@@ -112,6 +73,30 @@ class Student
     public function setDob(\DateTimeInterface $dob): self
     {
         $this->dob = $dob;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getCourse(): ?Course
+    {
+        return $this->course;
+    }
+
+    public function setCourse(?Course $course): self
+    {
+        $this->course = $course;
 
         return $this;
     }

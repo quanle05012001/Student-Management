@@ -14,8 +14,8 @@ class StudentFixtures extends Fixture
             $student = new Student();
             $student->setName('John Doe');
             $student->setPhone("0942557865");
-            $student->setCourse('Networking');
             $student->setDob(new \DateTime('now'));
+            $student->setImage('https://leerit.com/media/blog/uploads/2015/04/15/phan-biet-cac-tu-ve-hoc-sinh-student.jpg');
             $manager->persist($student);
         }
        

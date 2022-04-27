@@ -33,14 +33,13 @@ class CourseType extends AbstractType
                 'minlenght' => 30
             ]
         ])
-        ->add('student', EntityType::class, [
-            'label' => 'Student Name',
+        ->add('image', TextType::class,
+        [
+            'label'=>'Image',
             'required' => true,
-            'class' => Student::class,
-            'choice_label' => 'name',
-            'multiple' => false,
-            'expanded' => false
+    
         ])
+      
         ->add('Save', SubmitType::class)
         ;
     }

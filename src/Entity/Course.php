@@ -21,8 +21,11 @@ class Course
     #[ORM\Column(type: 'string', length: 255)]
     private $classroom;
 
-    #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'courses')]
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Student::class)]
     private $students;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $image;
 
     public function __construct()
     {
@@ -71,6 +74,7 @@ class Course
     {
         if (!$this->students->contains($student)) {
             $this->students[] = $student;
+            $student->setCourse($this);
         }
 
         return $this;
@@ -78,10 +82,28 @@ class Course
 
     public function removeStudent(Student $student): self
     {
-        $this->students->removeElement($student);
+        if ($this->students->removeElement($student)) {
+            // set the owning side to null (unless already changed)
+            if ($student->getCourse() === $this) {
+                $student->setCourse(null);
+            }
+        }
 
         return $this;
     }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
 
    
 }

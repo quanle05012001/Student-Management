@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Course;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,19 +34,23 @@ class StudentType extends AbstractType
                     'minlenght' => 30
                 ]
             ])
-            ->add('course', TextType::class,
-            [
-                'label'=>'Student Course',
+            ->add('course', EntityType::class, [
+                'label' => 'Course Name',
                 'required' => true,
-                'attr'=>[
-                    'maxlenght' => 5,
-                    'minlenght' => 30
-                ]
+                'class' => Course::class,
+                'choice_label' => 'name',
+                'multiple' => false,
+                'expanded' => false
             ])
             ->add('dob', DateType::class, [
                 'label'=>'Published date',
                 'required' => true,
                 'widget' => 'single_text'
+            ])
+            ->add('image', TextType::class,
+            [
+                'label'=>'Image',
+                'required' => true,
             ])
             ->add('Save', SubmitType::class)
             
