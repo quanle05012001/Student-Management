@@ -12,7 +12,7 @@ class CourseFixtures extends Fixture
     {
         for($i = 1; $i <=10; $i++){
             $course = new Course();
-            $course->setName('Tieng Viet 1');
+            $course->setName('Name $i');
             $course->setImage('https://images.thuvienpdf.com/J5hcEimage%20(14).webp');
             $course->setClassroom("GCH0901");;
             $manager->persist($course);

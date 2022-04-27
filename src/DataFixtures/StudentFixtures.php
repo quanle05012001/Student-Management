@@ -12,8 +12,8 @@ class StudentFixtures extends Fixture
     {
         for($i = 1; $i <=10; $i++){
             $student = new Student();
-            $student->setName('John Doe');
-            $student->setPhone("0942557865");
+            $student->setName('Quan Le');
+            $student->setPhone("0942558694");
             $student->setDob(new \DateTime('now'));
             $student->setImage('https://leerit.com/media/blog/uploads/2015/04/15/phan-biet-cac-tu-ve-hoc-sinh-student.jpg');
             $manager->persist($student);

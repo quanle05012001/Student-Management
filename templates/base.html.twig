@@ -12,31 +12,38 @@
     {% endblock %}
 </head>
 <body>
-    {% block header %}
-            <nav class="navbar navbar-expand-sm bg-light">
-            <a href="{{path('home')}}" class="navbar-brand">STD Management</a>
-            <a href="{{path('course_index')}}" class="navbar-brand">Courses</a>
-            <a href="{{path('student_index')}}" class="navbar-brand">Students</a>
-            <a href="#" class="navbar-brand">Teachers</a>
-            <a href="#" class="navbar-brand">Grades</a>
-            <a href="#" class="navbar-brand">Logout</a>
-            </nav>
-    {% endblock %}
-    {% block flash %}
-            <div class="container-nd col-md-6 text-center">
-            {% for message in app.session.flashBag.get("Success") %}
-                <div class="alert alert-success">
-                    {{ message }}
-                </div>
+     {# navigation bar #}
+        {% block nav %}
+        <ul class="nav justify-content-center|justify-content-end">
+            <h1><li class="nav-tabs">
+                <a class="nav-link" href="{{ path('home')}}">Home</a>
+            </li></h1>
+            <h1><li class="nav-tabs">
+                <a class="nav-link" href="{{ path('student_index')}}">Student</a>
+            </li></h1>
+            {% if is_granted('ROLE_ADMIN') %}
+            <h1><li class="nav-tabs">
+                <a class="nav-link" href="{{ path('course_index')}}">Course</a>
+            </li></h1>
+            {% endif %}
+            {% if app.user %}
+                <h1><li class="nav-tabs">
+                    <a class="nav-link" href="{{ path('app_logout')}}">Logout <i> ({{ app.user.username }}) </i> </a>
+                </li></h1>
+            {% endif %}
+        </ul>
+        {% endblock %}
+        {# show flash message #}
+        {% block flash %}
+        <div class="container-md col-md-5 mt-3 text-center">
+            {% for message in app.session.flashBag.get('Success') %}
+               <p class="alert alert-success">{{ message }}</p> 
             {% endfor %}
-            {% for message in app.session.flashBag.get("Error") %}
-                <div class="alert alert-danger">
-                    {{ message }}
-                </div>
+            {% for message in app.session.flashBag.get('Error') %}
+               <p class="alert alert-danger">{{ message }}</p> 
             {% endfor %}
-            </div>
-    {% endblock %}
-    {% block body %}
-    {% endblock %}
-    </body></html>
-    
+        </div>
+        {% endblock %}
+        {% block body %}{% endblock %}
+    </body>
+</html>
