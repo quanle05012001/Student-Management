@@ -10,12 +10,15 @@ class StudentFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $student = new Student();
-        $student->setName('John Doe');
-        $student->setPhone("0942557865");
-        $student->setCourse('Networking');
-        $student->setDob(new \DateTime('now'));
-        $manager->persist($student);
+        for($i = 1; $i <=10; $i++){
+            $student = new Student();
+            $student->setName('John Doe');
+            $student->setPhone("0942557865");
+            $student->setCourse('Networking');
+            $student->setDob(new \DateTime('now'));
+            $manager->persist($student);
+        }
+       
 
         $manager->flush();
     }
