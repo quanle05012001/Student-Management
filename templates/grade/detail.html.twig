@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container">
+		<h3 class="text-success text-center text-capitalize">Student Grade Detail</h3>
+		<a class="btn btn-outline-success mt-2" href="{{ path('app_grade') }}">Student Grade List</a>
+		<table class="table table-striped text-center mt-2">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Grade</th>
+					<th>Course</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					
+					<tr>    
+						<td>{{ grade.id }}</td>
+						<td>
+						{% if grade.student != null %}
+							<a class="text-info" href="{{ path('student_detail', {'id': grade.student.id}) }}">
+								{{ grade.student.name }}
+							</a>
+						{% endif %}
+						<td>{{ grade.grade }}</td>
+						<td>{{ grade.course.name }}</td>
+						<td>
+							<a class="btn btn-info" href="{{ path('edit_grade', {'id': grade.id}) }}">EDIT</a>
+							<a class="btn btn-warning" href="{{ path('delete_grade', {'id': grade.id}) }}" 
+							onclick="return confirm('Are you sure to delete this student ?')">DELETE</a>
+						</td>
+						
+				</tr>
+               
+				
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

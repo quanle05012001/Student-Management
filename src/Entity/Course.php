@@ -33,10 +33,14 @@ class Course
     #[ORM\ManyToMany(targetEntity: Teacher::class, mappedBy: 'course')]
     private $teachers;
 
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Grade::class)]
+    private $grades;
+
     public function __construct()
     {
         $this->students = new ArrayCollection();
         $this->teachers = new ArrayCollection();
+        $this->grades = new ArrayCollection();
     }
 
 
@@ -145,6 +149,36 @@ class Course
     {
         if ($this->teachers->removeElement($teacher)) {
             $teacher->removeCourse($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Grade>
+     */
+    public function getGrades(): Collection
+    {
+        return $this->grades;
+    }
+
+    public function addGrade(Grade $grade): self
+    {
+        if (!$this->grades->contains($grade)) {
+            $this->grades[] = $grade;
+            $grade->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGrade(Grade $grade): self
+    {
+        if ($this->grades->removeElement($grade)) {
+            // set the owning side to null (unless already changed)
+            if ($grade->getCourse() === $this) {
+                $grade->setCourse(null);
+            }
         }
 
         return $this;
