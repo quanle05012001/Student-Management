@@ -25,7 +25,7 @@
             <td>{{ student.phone }}</td>
             <td>
                 {% if student.course != null %}
-                        <a class="text text-success text-decoration-none" href="{{path('course_index', {'id':student.course.id})}}">
+                        <a class="text text-success text-decoration-none" href="{{path('course_detail', {'id':student.course.id})}}">
                             {{ student.course.name }}
                         </a>   
                 {% endif %}

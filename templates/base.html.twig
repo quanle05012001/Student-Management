@@ -21,12 +21,12 @@
             <h1><li class="nav-tabs">
                 <a class="nav-link" href="{{ path('student_index')}}">Student</a>
             </li></h1>
-            {% if is_granted('ROLE_ADMIN') %}
+
             <h1><li class="nav-tabs">
                 <a class="nav-link" href="{{ path('course_index')}}">Course</a>
             </li></h1>
-            {% endif %}
-            {% if app.user %}
+            
+            {% if app.user.username != null %}
                 <h1><li class="nav-tabs">
                     <a class="nav-link" href="{{ path('app_logout')}}">Logout <i> ({{ app.user.username }}) </i> </a>
                 </li></h1>

@@ -20,6 +20,18 @@ class StudentController extends AbstractController
             'students' => $students
         ]);
     }
+    #[Route('/detail/{id}', name: 'student_detail')]
+    public function studentDetail($id)
+    {
+        $student = $this->getDoctrine()->getRepository(Student::class)->find($id);
+        if (!$student) {
+            $this->addFlash("Error", "Student not found !");
+            return $this->redirectToRoute("student_index");
+        }
+        return $this->render('student/detail.html.twig', [
+            'student' => $student,
+        ]);
+    }
 
     #[Route('/delete/{id}', name: 'student_delete')]
     public function studentDelete (ManagerRegistry $registry, $id) {
@@ -60,7 +72,7 @@ class StudentController extends AbstractController
             $manager = $registry->getManager();
             $manager -> persist($student);
             $manager -> flush();
-            $this->addFlash('Success', 'Add student successfull !!');
+            $this->addFlash('Success', 'Edit student successfull !!');
             return $this->redirectToRoute("student_index");
         }
         return $this->renderForm('student/edit.html.twig',

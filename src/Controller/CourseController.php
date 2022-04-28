@@ -20,6 +20,18 @@ class CourseController extends AbstractController
             'courses' => $courses
         ]);
     }
+    #[Route('/detail/{id}', name: 'course_detail')]
+    public function courseDetail($id)
+    {
+        $course = $this->getDoctrine()->getRepository(Course::class)->find($id);
+        if (!$course) {
+            $this->addFlash("Error", "Course not found !");
+            return $this->redirectToRoute("course_index");
+        }
+        return $this->render('course/detail.html.twig', [
+            'course' => $course,
+        ]);
+    }
 
     #[Route('/delete/{id}', name: 'course_delete')]
     public function courseDelete (ManagerRegistry $registry, $id) {
