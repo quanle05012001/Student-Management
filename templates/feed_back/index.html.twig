@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Feedback List{% endblock %}
+
+{% block body %}
+    
+
+    <div class="container">
+	<h1 class="text-success text-center">Feedback List</h1>
+
+	<center><a class="btn btn-info text-center mt-2" href="{{ path('add_feedback') }}" style="font-size: 25px;">Add Feedback</a><center>
+    
+    <center>
+    </center>
+
+    <table class="table table-striped text-center mt-2" style="width: 600px">
+			<thead >
+				<tr >
+                    <th>Date</th>
+					<th width="30%">Name</th>
+					<th width="40%">Feedback</th>
+					<th width="50%">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for feedback in feedback %}
+					<tr style="font-family: Segoe UI; font-size: 16px;">
+						<td>{{ feedback.receivedAt|date("m/d/Y") }}</td>
+						<td>{{ feedback.teacher.name }}</td>
+						<td>{{ feedback.feedback }}</td>
+						<td width="100%">
+							<a class="btn btn-warning" href="{{ path('edit_feedback', {'id': feedback.id})}}">Edit</a>
+							<a class="btn btn-danger" href="{{ path('delete_feedback', {'id': feedback.id})}}" onclick="return confirm('Are you sure to delete this student ?')">Delete</a>
+						</td>
+						
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+</div>
+
+{% endblock %}

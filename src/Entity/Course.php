@@ -27,9 +27,16 @@ class Course
     #[ORM\Column(type: 'string', length: 255)]
     private $image;
 
+    #[ORM\ManyToOne(targetEntity: Major::class, inversedBy: 'course')]
+    private $major;
+
+    #[ORM\ManyToMany(targetEntity: Teacher::class, mappedBy: 'course')]
+    private $teachers;
+
     public function __construct()
     {
         $this->students = new ArrayCollection();
+        $this->teachers = new ArrayCollection();
     }
 
 
@@ -100,6 +107,45 @@ class Course
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getMajor(): ?Major
+    {
+        return $this->major;
+    }
+
+    public function setMajor(?Major $major): self
+    {
+        $this->major = $major;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Teacher>
+     */
+    public function getTeachers(): Collection
+    {
+        return $this->teachers;
+    }
+
+    public function addTeacher(Teacher $teacher): self
+    {
+        if (!$this->teachers->contains($teacher)) {
+            $this->teachers[] = $teacher;
+            $teacher->addCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeacher(Teacher $teacher): self
+    {
+        if ($this->teachers->removeElement($teacher)) {
+            $teacher->removeCourse($this);
+        }
 
         return $this;
     }
